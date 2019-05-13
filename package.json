@@ -1,0 +1,23 @@
+{
+    "name": "card_game",
+    "version": "0.0.1",
+    "description": "Card game based on Might & Magic Duels of Champions made by Ubisoft. The original game was discontinued many years ago and it is no longer playable. This card game uses similar playstyle and mechanics, but also includes some variations and features that you might see in card games nowadays.",
+    "main": "index.js",
+    "directories": {
+        "test": "tests"
+    },
+    "scripts": {
+        "test": "./node_modules/mocha/bin/mocha -r amd-loader tests/*.js || exit 0"
+    },
+    "keywords": [
+        "cards",
+        "game"
+    ],
+    "author": "reggiePuksta",
+    "license": "ISC",
+    "devDependencies": {
+        "amd-loader": "0.0.8",
+        "chai": "^4.2.0",
+        "mocha": "^6.0.2"
+    }
+}
