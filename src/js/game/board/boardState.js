@@ -37,6 +37,7 @@ BoardState.prototype.target = function(targetArray) {
         'ranged': [0, 1, 2, 3, 12, 13, 14, 15],
         'enemy': [8, 9, 10, 11, 12, 13, 14, 15],
         'friendly': [0, 1, 2, 3, 4, 5, 6, 7, 8],
+        'trapsLane' : [16, 17, 18 ,19],
         'lane1': [0, 4, 8, 12],
         'lane2': [1, 5, 9, 13],
         'lane3': [2, 6, 10, 14],

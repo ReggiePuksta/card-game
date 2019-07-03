@@ -7,7 +7,11 @@ define(function(require) {
           this.displayDynamicContent(data);
       });
   };
-  BoardView.prototype.activateTargetingMode = function() {
+  BoardView.prototype.targetModeBoard = function() {
+      this.mode = "targeting";
+  };
+  BoardView.prototype.targetModePlace = function(card) {
+      this.getFreeSlots();
       this.mode = "targeting";
   };
   BoardView.prototype.animatePlacement = function() {

@@ -1,4 +1,3 @@
-// define(function(require) {
 var PriceDirector = function(startingMana, startingStats) {
     // Initialise with userId
     // this.userId = userId;
@@ -123,7 +122,6 @@ PriceDirector.prototype.update = function(cardId, pos) {
 };
 
 
-// });
 var pd = new PriceDirector();
 
 pd.addMana(2);
