@@ -1,3 +1,22 @@
+Application initialisation procedure:
+    - Load index.html and it's css.
+    - Check if user has stored session (logged in).
+        If user is logged in we show "Players menu" template
+        If user is not logged in we show "Main menu" template
+    - Load core Templates first
+    - Load the Router
+    Create Routing.js for the following pages:
+        1) Main menu (no session, initial load page)
+        2) Players menu (with session, initial load page)
+        3) Deck Builder (with session, loaded from the "Players menu")
+        3) Game (with session, loaded from the "Players menu", if the deck is set)
+    When router chooses the page it initiates the required page template.
+    
+TODO:
+Include core functionality:
+    Templating
+    Router
+
 Include support files:
     Normalise.css
 
