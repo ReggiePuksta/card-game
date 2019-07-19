@@ -24,3 +24,11 @@ Animation.prototype.damage = function(positions) {
     // Change Text color to red
     this.text.class = 'red';
 };
+var AnimationStorage = {
+    damage: function() {
+        
+    },
+    heal: function() {
+
+    }
+}

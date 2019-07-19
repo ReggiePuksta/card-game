@@ -2,11 +2,6 @@ var CardView =  function() {
   this.template = {};
   this.binders = {};
 };
-var animations = {
-  hp : function() {
-    this.container.
-  };
-}
 
 // TODO WE need to pre-scan the fragment in some way, so that we wouldnt
 // have to scan it all over for each copy of an oject.

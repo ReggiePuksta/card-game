@@ -1,4 +1,4 @@
-var Controller = require('../../core/Controller.js');
+var Controller = require('../../core/controller.js');
 
 HeroController = function(service, view) {
   Controller.call(this, service, view);
@@ -17,9 +17,7 @@ HeroController.prototype.clickHandler = function(e) {
   // we will need both hero and board models.
   // We can abstract both models with a service layer.
   if (this.service.playerTurn()) {
-    this.service.doDamage(function(hp) {
-      this.view.reduceHp(hp);
-    });
+    this.service.doDamage(hp);
   } else {
     this.view.showOptions();
   }

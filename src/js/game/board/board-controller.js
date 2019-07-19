@@ -14,10 +14,9 @@ BoardController.prototype.events = function() {
         this.boardSlotHandler.bind(this));
     this.view.boardSlot.on("hover",
         this.hoverBoardSlotHandler.bind(this));
-    this.view.hero.on("click",
-        this.heroHandler.bind(this));
 };
 BoardController.prototype.handHandler = function(e) {
+    // TODO has to be moved to the view
     var card = e.target;
     var $card = $(card);
     var cardId = card.data.id;
@@ -28,7 +27,6 @@ BoardController.prototype.handHandler = function(e) {
     this.view.showAvailableSlots(this.availableSlots);
 };
 BoardController.prototype.boardSlotHandler = function(e) {
-
     var slot = e.target;
     var position = slot.data.pos;
     if (!this.availableSlots.length) {
@@ -39,7 +37,7 @@ BoardController.prototype.boardSlotHandler = function(e) {
         console.log("No active Card is Available"); return;
     }
     // Validate if Slot is highlighted and available
-    // TODO
+    // TODO put this into separate object
     for (var i = 0, p = this.availableSlots.length; i < p; i++) {
         if (this.availableSlots[i] === position) {
             // socket.emmit("activateCard", {

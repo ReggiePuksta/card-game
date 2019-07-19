@@ -1,4 +1,4 @@
-var CardFactory = require('CardFactory');
+var CardFactory = require('card-factory');
 var cardFactory = new CardFactory();
 
 var CardsStorage = function() {

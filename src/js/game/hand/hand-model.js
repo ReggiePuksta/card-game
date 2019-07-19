@@ -2,12 +2,6 @@ var HandModel = function(cardsStorage) {
     this.data = data;
     this.cardsIds = [];
 };
-/**
-* init();
-* HandModel initialisation function that uses provided raw data
-* and 
-*
-*/
 HandModel.prototype.init = function(cardsStorage) {
     this.cardsIds = this.data.initCardsList;
     // this.cardsIds = [24,2,5,62,10];
@@ -48,41 +42,5 @@ HandModel.prototype.validate = function(handlist) {
         return false;
     });
 };
-var BoardService = function(models) {
-    this.boardModel = models.boardModel;
-    this.heroModel = models.heroModel;
-};
-BoardService.prototype.placeTheCard = function(id) {
-  
-};
-BoardService.prototype.dealDamage= function(id) {
-  
-};
 
-
-var HandService = function(models) {
-    this.handModel = models.handModel;
-    this.boardModel = models.boardModel;
-    this.statsModel = models.statsModel;
-};
-HandService.prototype.checkAvailablePositions = function(id) {
-  this.boardModel.checkAvailablePositions(id);
-  Notifier.emit('showPositions', id);
-};
-HandService.prototype.getPlayableCards = function() {
-  var cards = this.cardsStorage.getHandCards();
-  var stats = this.statsModel.get();
-  return this.handModel.checkHand(card, stats);
-  
-};
-HandService.prototype.reduceCost= function(amount, type) {
-  var cards = this.cardsStorage.getHandCards(type);
-  this.handModel.reduceCost(cards);
-  return this.handModel.checkHand(card, stats);
-  
-};
-HandService.prototype.increaseCost= function(amount, type) {
-  var cards = this.cardsStorage.getHandCards(type);
-  this.handModel.reduceCost(cards);
-  return this.handModel.checkHand(card, stats);
-};
+module.exports = HandModel;

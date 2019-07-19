@@ -1,7 +1,11 @@
-var HeroView = function(container, animation) {
+// We need to get Animations object instance
+var Animation = require('../../animation.js');
+// We need to get Template storage instance
+var TemplateStorage = require('../../template-storage.js');
+var HeroView = function(container) {
   this.$container = container;
   this.$hp = qs(this.$container, '.hp');
-  this.animate = animation;
+  this.animate = true;
 };
 HeroView.prototype.render = function(data) {
   Template.render('Hero', data);
@@ -26,14 +30,14 @@ HeroView.prototype.update= function(data) {
 HeroView.prototype.reduceHP = function(hp) {
   // We can choose if we want to animate or just update the data
   if (this.animate) {
-    Animate.reduce(this.$hp, hp);
+    Animation.reduce(this.$hp, hp);
   } else {
     this.$hp.textContent = hp;
   }
 };
 HeroView.prototype.increaseHP = function(hp) {
   if (this.animate) {
-    Animate.increase(this.$hp, hp);
+    Animation.increase(this.$hp, hp);
   } else {
     this.$hp.textContent = hp;
   }
