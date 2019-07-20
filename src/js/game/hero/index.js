@@ -23,21 +23,43 @@ var GameView = require('../game-game-view.js');
     Template storage and Animations storage. 
     */
 var hero = function(name, events) {
-  return function(data) {
-    var heroModel = new HeroModel(name, data);
-    GameModel.add(name, heroModel);
-    var heroView = new HeroView(name, name, templateStorage);
-    GameView.add(name, heroView);
-    var heroController = new HeroConctroller(name,
-      heroModel, heroView);
-    heroController.clickEvent(clickFunc);
+  var heroModel = {};
+  return {
+    init: function(data) {
+      heroModel = new HeroModel(name, data);
+      GameModel.add(name, heroModel);
+      var heroView = new HeroView(name, name, templateStorage);
+      GameView.add(name, heroView);
+      var heroController = new HeroConctroller(name,
+        heroModel, heroView);
+      heroController.clickEvent(clickFunc);
+    },
+    update: function(data) {
+      heroModel.update(data);
+    }
   };
 };
-var enemyHeroEvents = function(viewData) {
+
+var Herofactory = function(name, events) {
+  this.name = name;
+  this.events = events;
+  this.model = {};
+}
+Herofactory.prototype.init = function(data) {
+  this.model = new HeroModel(this.name, data);
+  var heroView = new HeroView(this.name, this.name);
+  //   GameModel.add(name, heroModel);
+  //   GameView.add(name, heroView);
+  var heroController = new HeroConctroller(this.name,
+    heroModel, heroView);
+  heroController.clickEvent(this.events);
 };
-var playerHeroEvents = function(viewData) {
+Herofactory.prototype.update = function(data) {
+  this.model.update(data);
 };
+var enemyHeroEvents = function(viewData) {};
+var playerHeroEvents = function(viewData) {};
 module.exports = {
-  playerHero: hero('enemyHero', enemyHeroEvents),
-  enemyHero: hero('playerHero', playerHeroEvents)
+  player: new Herofactory('player', playerEvents),
+  enemy: new HeroFactory('enemy', enemyEvents)
 };

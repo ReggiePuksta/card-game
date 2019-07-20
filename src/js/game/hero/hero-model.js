@@ -1,9 +1,11 @@
 var HeroModel = function(data) {
   this.name = data.name + 'HeroModel';
-  this.stats = data.stats;
+  this.str = data.str;
+  this.int = data.int;
+  this.fortune = data.fortune;
   this.hp = data.hp;
 };
-HeroModel.prototype.updateAll= function(data) {
+HeroModel.prototype.updateAll = function(data) {
   this.name = data.name + 'HeroModel';
   this.stats = data.stats;
   this.hp = data.hp;
@@ -21,17 +23,29 @@ HeroModel.prototype.getHp = function() {
 HeroModel.prototype.setHp = function(hp) {
   this.hp = hp;
 };
-HeroModel.prototype.updateHp = function(change) {
-  this.hp += change;
-  Notifier.emit(this.name + 'Hero.hp', this.hp);
-  if (this.hp === 0) {
+HeroModel.prototype.update = function(stat, value, change) {
+  if (change) {
+    this[stat] += value;
+  } else {
+    this[stat] -= value;
+  }
+  Notifier.emit(this.name + 'Hero.' + stat, {
+    value: this[stat],
+    change: change
+  });
+}
+HeroModel.prototype.updateHp = function(value, change) {
+  this.update('hp', value, change);
+  if (this.hp < 1) {
     Notifier.emit(this.name + '.gameEnd', 2);
   }
 };
-HeroModel.prototype.updateStats = function(stats) {
-  for (var i = 0; i < 3; i++) {
-    this.stats[i] += stats[i];
-  }
-  Notifier.emit(this.name + '.statsUpdate', this.stats);
-  return this.stats;
+HeroModel.prototype.updateStr = function(value, change) {
+  this.update('str', value, change);
+};
+HeroModel.prototype.updateInt = function(value, change) {
+  this.update('int', value, change);
+};
+HeroModel.prototype.updateFortune = function(value, change) {
+  this.update('fortune', value, change);
 };

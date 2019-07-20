@@ -26,26 +26,46 @@ var templates = {
   },
   mainMenu: {
     name: 'mainMenu',
-    type:'local',
+    type: 'local',
     loadAll: true
+  },
+  hero: {
+    name: 'hero',
+    type: 'inline',
+    inline: function(data) {
+      return '<div class="hero-container">' +
+      '<div class="hero-name">' + data.name + '</div>' +
+      '<div class="hero-image">' + data.image + '</div>' +
+      '<div class="hero-stats">' + data.stats + '</div>' +
+      '<div class="hero-hp">' + data.hp + '</div>' +
+      '</div> '
+    }
   }
 };
-TemplateStorage = function() {
-  this.collection = {};
+TemplateStorage = function(templates) {
+  this.collection = templates || {};
 };
-TemplateStorage.prototype.get= function(name) {
-  if (!this.collection[name]) {
+TemplateStorage.prototype.get = function(name) {
+ var template = this.collection[name];
+  if (!template) {
     // TODO error handling
     return;
   }
-  return this.collection[name].frag.cloneNode(true);
-};
-TemplateStorage.prototype.exportURLs = function() {
-  var urls = [];
-  for (var i = 0, len = this.collection.length; i < len; i++) {
-    urls.push(this.collection[i].url);
+  if (template.inline) {
+    return template.inline; 
   }
-  return urls;
+  return template.frag.cloneNode(true);
+};
+TemplateStorage.prototype.render = function(name,container, data) {
+ var tmpl = this.get(name)(data);
+ tmpl.attachTo(container);
+}
+TemplateStorage.prototype.addInline = function(name, template) {
+ this.collection[name] = {
+   name: name,
+   type: 'inline',
+   inline: template
+ }
 };
 TemplateStorage.prototype.loadAll = function(cb) {
   // Load callback function only after both methods have loaded the
@@ -109,7 +129,6 @@ TemplateStorage.prototype.loadOne = function(name, callback) {
     throw "Template with this name doesn't exist";
   }
 };
-TemplateStorage.prototype.importCollection = function() {};
 // ajax.getMultiple([
 //     'localhost:3000/template.html',
 //     'localhot:3000/template2.html'
@@ -117,10 +136,9 @@ TemplateStorage.prototype.importCollection = function() {};
 //     templates.load(data);
 // });
 
-var tmp = new TemplateStorage(templates);
-tmp.loadAllAjax(function() {
-  console.log("DONE LOADING TEMPLATES");
-  console.log(tmp.collection);
-});
+// tmp.loadAllAjax(function() {
+//   console.log("DONE LOADING TEMPLATES");
+//   console.log(tmp.collection);
+// });
 
-module.exports = TemplateStorage;
+module.exports = new TemplateStorage(templates);

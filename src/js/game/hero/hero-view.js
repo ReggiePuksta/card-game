@@ -1,44 +1,29 @@
 // We need to get Animations object instance
-var Animation = require('../../animation.js');
-// We need to get Template storage instance
-var TemplateStorage = require('../../template-storage.js');
+var animation = require('../../animation.js');
+var template = require('../../template-storage.js');
+var helper = require('../../utils.js');
 var HeroView = function(container) {
-  this.$container = container;
-  this.$hp = qs(this.$container, '.hp');
+  this.$container = helper.qs(container);
   this.animate = true;
 };
 HeroView.prototype.render = function(data) {
-  Template.render('Hero', data);
+  template.render('hero', this.$container, data);
+  this.$hp = helper.qs(this.$container, '.hp');
+};
+HeroView.prototype.modelChanges= function() {
+  Notification.on(this.name + 'HeroHp', this.updateHp);
+};
+HeroView.prototype.update = function(prop, data) {
+  this[prop].textContent = data.value;
+  if (data.change) {
+     animation.use('increase', this[prop]); 
+  } else {
+     animation.use('decrease', this[prop]);
+  }
+}
+HeroView.prototype.updateHp= function(data) {
+    this.update('$strength', data);
 };
 HeroView.prototype.showOptions = function(data) {
-  Template.render('OptionsMenu', data, data.optionsNum);
-};
-HeroView.prototype.update= function(data) {
- switch (data.type) {
-   case 'hp':
-    if (data.increment) {
-      this.increaseHP(data.amount);
-    } else {
-      this.reduceHP(data.amount);
-    } 
-     break;
-   
-   default:
-     
- } 
-};
-HeroView.prototype.reduceHP = function(hp) {
-  // We can choose if we want to animate or just update the data
-  if (this.animate) {
-    Animation.reduce(this.$hp, hp);
-  } else {
-    this.$hp.textContent = hp;
-  }
-};
-HeroView.prototype.increaseHP = function(hp) {
-  if (this.animate) {
-    Animation.increase(this.$hp, hp);
-  } else {
-    this.$hp.textContent = hp;
-  }
+  template.render('optionsMenu', this.$container, data);
 };
