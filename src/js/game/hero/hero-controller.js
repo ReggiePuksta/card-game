@@ -6,11 +6,6 @@ HeroController = function(service, view) {
 HeroController.prototype = Object.create(Controller.prototype);
 HeroController.prototype.constructor = HeroController;
 
-HeroController.prototype.ModelEvents = function(e) {
-  Notifier.on('HeroChange', function(data) {
-    this.view.update(data);
-  });
-};
 HeroController.prototype.clickHandler = function(e) {
   // We need to check if the card is clicked not in the hero model,
   // but in the board Model. Therefore to use this controller

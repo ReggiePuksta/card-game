@@ -16,13 +16,13 @@ HeroView.prototype.modelChanges= function() {
 HeroView.prototype.update = function(prop, data) {
   this[prop].textContent = data.value;
   if (data.change) {
-     animation.use('increase', this[prop]); 
+     animation.use('increase', this[prop]);
   } else {
      animation.use('decrease', this[prop]);
   }
-}
+};
 HeroView.prototype.updateHp= function(data) {
-    this.update('$strength', data);
+    this.update('$hp', data);
 };
 HeroView.prototype.showOptions = function(data) {
   template.render('optionsMenu', this.$container, data);
