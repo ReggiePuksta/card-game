@@ -1,5 +1,6 @@
-var HeroModel = require('./hero-model.js/index.js');
-var HeroView = require('./hero-view.js/index.js');
+var HeroModel = require('./hero-model.js');
+var HeroView = require('./hero-view.js');
+var HeroStatsView = require('./hero-stats-view.js');
 var HeroController = require('./hero-controller.js');
 var Animation = require('../../animation.js');
 var GameModel = require('../game-model.js');
@@ -22,23 +23,6 @@ var GameView = require('../game-game-view.js');
     those functions while we are initializing. Same with View dependencies: 
     Template storage and Animations storage. 
     */
-var hero = function(name, events) {
-  var heroModel = {};
-  return {
-    init: function(data) {
-      heroModel = new HeroModel(name, data);
-      GameModel.add(name, heroModel);
-      var heroView = new HeroView(name, name, templateStorage);
-      GameView.add(name, heroView);
-      var heroController = new HeroConctroller(name,
-        heroModel, heroView);
-      heroController.clickEvent(clickFunc);
-    },
-    update: function(data) {
-      heroModel.update(data);
-    }
-  };
-};
 
 var Herofactory = function(name, events) {
   this.name = name;
@@ -48,6 +32,7 @@ var Herofactory = function(name, events) {
 Herofactory.prototype.init = function(data) {
   this.model = new HeroModel(this.name, data);
   var heroView = new HeroView(this.name, this.name);
+  var heroStatsView = new HeroStatsView(this.name, this.name);
   //   GameModel.add(name, heroModel);
   //   GameView.add(name, heroView);
   var heroController = new HeroConctroller(this.name,
@@ -60,6 +45,6 @@ Herofactory.prototype.update = function(data) {
 var enemyHeroEvents = function(viewData) {};
 var playerHeroEvents = function(viewData) {};
 module.exports = {
-  player: new Herofactory('player', playerEvents),
-  enemy: new HeroFactory('enemy', enemyEvents)
+  player: new Herofactory('player', playerHeroEvents),
+  enemy: new HeroFactory('enemy', enemyHeroEvents)
 };

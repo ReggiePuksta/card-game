@@ -1,4 +1,23 @@
 var Ajax = require('./ajax.js');
+/**
+ * TEMPLATING
+ * We have 4 options:
+ * 1) Use ajax to load external html templates. Requires more
+ * work to set up and might be slow, because you need to load templates
+ * with separate requests. It is also the most dynamic and flexible option.
+ * 2) Store templates inside original index.html. Simple and Fast, but
+ * becomes harder to manage with many templates stored in the same file.
+ * 3) Store templates in separate html files, and use tools like Webpack
+ * to put those templates inside index.html during build time. Complicated
+ * set up. Fast during run time.
+ * 4) Store templates as Html strings inside JavaScript file.
+ * Very simple, but not very flexible and might get confusing with
+ * large amounts of html.
+ *
+ * We will use a reasonable amount of HTML for small UI widgets.
+ * We want to make this application extensible and
+ * maintainable for future updates. Options 1 and 3 seems the best. 
+ */
 /*  Template --> View procedure 
  *  1) Check if template is in the cache
  *  2) If not there: init Upload all templates
@@ -11,61 +30,32 @@ var Ajax = require('./ajax.js');
  *  ---render()---
  *  5) Append the fragment in the DOM
  */
-var templates = {
-  header: {
-    name: 'header',
-    url: 'http://localhost:3000/templates/cardTemp.html',
-    loadAll: true,
-    frag: {}
-  },
-  board: {
-    name: 'board',
-    url: 'http://localhost:3000/templates/boardTemp.html',
-    type: 'xhr',
-    loadAll: true,
-  },
-  mainMenu: {
-    name: 'mainMenu',
-    type: 'local',
-    loadAll: true
-  },
-  hero: {
-    name: 'hero',
-    type: 'inline',
-    inline: function(data) {
-      return '<div class="hero-container">' +
-      '<div class="hero-name">' + data.name + '</div>' +
-      '<div class="hero-image">' + data.image + '</div>' +
-      '<div class="hero-stats">' + data.stats + '</div>' +
-      '<div class="hero-hp">' + data.hp + '</div>' +
-      '</div> '
-    }
-  }
-};
 TemplateStorage = function(templates) {
   this.collection = templates || {};
 };
 TemplateStorage.prototype.get = function(name) {
- var template = this.collection[name];
+  var template = this.collection[name];
   if (!template) {
     // TODO error handling
     return;
   }
   if (template.inline) {
-    return template.inline; 
+    return parseStringToFrag(template.inline);
   }
   return template.frag.cloneNode(true);
 };
-TemplateStorage.prototype.render = function(name,container, data) {
- var tmpl = this.get(name)(data);
- tmpl.attachTo(container);
-}
+TemplateStorage.prototype.render = function(name, container, data) {
+  var tmpl = this.get(name)(data);
+  // TODO create bindables when we load the template inside TemplateStorage.
+  // tmpl.attachTo(container);
+  return getBindedElements(tmpl);
+};
 TemplateStorage.prototype.addInline = function(name, template) {
- this.collection[name] = {
-   name: name,
-   type: 'inline',
-   inline: template
- }
+  this.collection[name] = {
+    name: name,
+    type: 'inline',
+    inline: template
+  }
 };
 TemplateStorage.prototype.loadAll = function(cb) {
   // Load callback function only after both methods have loaded the
@@ -129,6 +119,35 @@ TemplateStorage.prototype.loadOne = function(name, callback) {
     throw "Template with this name doesn't exist";
   }
 };
+var parseStringToFrag = function(htmlString) {
+  // We check if Template tag api is available on the browser
+  // Then we can create a fragment out of it.
+  var template = document.createElement('template');
+  if ('content' in template) {
+    template.innerHTML = htmlString;
+    return document.importNode(template.content, true);
+  }
+  // If do not, we have to manually push html elements to the 
+  // fragment.
+  var frag = document.createDocumentFragment();
+  var div = document.createElement('div');
+  div.innerHTML = htmlString;
+  while (div.firstChild) {
+    frag.appendChild(div.firstChild);
+  }
+};
+var getBindedElements = function(tmp) {
+  var binds = tmp.querySelectorAll('.binds');
+  return Array.prototype.reduce.call(binds,
+    function(acc, cur) {
+      if (cur.dataset.tmpl) {
+        //acc.push({name: cur.dataset.tmpl,
+        //         target: cur });
+        acc[cur.dataset.tmpl] = cur;
+        return acc;
+      }
+    }, {});
+}
 // ajax.getMultiple([
 //     'localhost:3000/template.html',
 //     'localhot:3000/template2.html'
@@ -140,5 +159,36 @@ TemplateStorage.prototype.loadOne = function(name, callback) {
 //   console.log("DONE LOADING TEMPLATES");
 //   console.log(tmp.collection);
 // });
+var templates = {
+  header: {
+    name: 'header',
+    url: 'http://localhost:3000/templates/cardTemp.html',
+    loadAll: true,
+    frag: {}
+  },
+  board: {
+    name: 'board',
+    url: 'http://localhost:3000/templates/boardTemp.html',
+    type: 'xhr',
+    loadAll: true,
+  },
+  mainMenu: {
+    name: 'mainMenu',
+    type: 'local',
+    loadAll: true
+  },
+  hero: {
+    name: 'hero',
+    type: 'inline',
+    inline: function(data) {
+      return '<template class="hero-container">' +
+        '<div class="hero-name binds" data-tmpl="name">' + data.name + '</div>' +
+        '<div class="hero-image binds" data-tmpl="image">' + data.image + '</div>' +
+        '<div class="hero-stats binds" data-tmpl="strength">' + data.stats + '</div>' +
+        '<div class="hero-hp binds" data-tmpl="hp">' + data.hp + '</div>' +
+        '</template> '
+    }
+  }
+};
 
 module.exports = new TemplateStorage(templates);

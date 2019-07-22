@@ -18,11 +18,11 @@ StatsView.prototype.modelChanges= function() {
   Notification.on(this.name + 'HeroFortune', this.updateFortune);
 };
 StatsView.prototype.update = function(prop, data) {
-  this[prop].textContent = data.value;
-  if (data.change) {
-    animation.use('increase', this[prop]); 
+//   this[prop].textContent = data.value;
+  if (data.increase) {
+    animation.use('increase', this[prop], data.value); 
   } else {
-    animation.use('decrease', this[prop]);
+    animation.use('decrease', this[prop], data.value);
   }
 };
 StatsView.prototype.updateStrength = function(data) {

@@ -23,15 +23,11 @@ HeroModel.prototype.getHp = function() {
 HeroModel.prototype.setHp = function(hp) {
   this.hp = hp;
 };
-HeroModel.prototype.update = function(stat, value, change) {
-  if (change) {
-    this[stat] += value;
-  } else {
-    this[stat] -= value;
-  }
+HeroModel.prototype.update = function(stat, value) {
+  this[stat] += value;
   Notifier.emit(this.name + 'Hero.' + stat, {
     value: this[stat],
-    change: change
+    increase: (value > 0)
   });
 }
 HeroModel.prototype.updateHp = function(value, change) {
