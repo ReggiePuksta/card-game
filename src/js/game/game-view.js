@@ -14,3 +14,5 @@ GameView.prototype.render = function() {
         view.render();
     }
 };
+
+module.exports = GameView;

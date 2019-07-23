@@ -1,4 +1,3 @@
-define(function(require) {
   var utils = {};
   // Merging two objects
   utils.extend = function(obj, src) {
@@ -18,6 +17,8 @@ define(function(require) {
     }
     return null;
   };
+  utils.qs = function(id) {
+    document.getElementById(id);
+  }
 
-  return utils;
-});
+  module.exports = utils;

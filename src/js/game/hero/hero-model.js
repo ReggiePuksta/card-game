@@ -1,7 +1,9 @@
-var HeroModel = function(data) {
-  this.name = data.name + 'HeroModel';
-  this.str = data.str;
-  this.int = data.int;
+var Notifier = require('../../notifier');
+var HeroModel = function(modelName, data) {
+  this.modelName = modelName;
+  this.name = data.name;
+  this.strength = data.strength;
+  this.inteligence = data.inteligence;
   this.fortune = data.fortune;
   this.hp = data.hp;
 };
@@ -45,3 +47,5 @@ HeroModel.prototype.updateInt = function(value, change) {
 HeroModel.prototype.updateFortune = function(value, change) {
   this.update('fortune', value, change);
 };
+
+module.exports = HeroModel;

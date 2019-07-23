@@ -13,9 +13,9 @@ StatsView.prototype.render = function(data) {
   this.$fortune = helper.qs(this.$container, '.fortune');
 };
 StatsView.prototype.modelChanges= function() {
-  Notification.on(this.name + 'HeroStrenght', this.updateStrength);
-  Notification.on(this.name + 'HeroInteligence', this.updateInteligence);
-  Notification.on(this.name + 'HeroFortune', this.updateFortune);
+  Notifier.on(this.name + 'HeroStrenght', this.updateStrength);
+  Notifier.on(this.name + 'HeroInteligence', this.updateInteligence);
+  Notifier.on(this.name + 'HeroFortune', this.updateFortune);
 };
 StatsView.prototype.update = function(prop, data) {
 //   this[prop].textContent = data.value;
@@ -34,3 +34,4 @@ StatsView.prototype.updateInteligence = function(data) {
 StatsView.prototype.updateFortune = function(data) {
     this.update('$fortune', data);
 };
+module.exports = StatsView;

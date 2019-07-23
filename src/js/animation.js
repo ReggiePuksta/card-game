@@ -1,23 +1,9 @@
 var Animation = function(type) {
-    this.type = type;
+    this.collection = {};
 };
-Animation.prototype.animate = function(type) {
-    switch (type) {
-        case 'damage':
-            this.damage(positions);
-            break;
-        case 'heal':
-            this.heal(positions);
-            break;
-        case 'poision':
-            this.poison(positions);
-            break;
-        case 'shockWave':
-            this.shockWave(range, direction, position);
-            break;
-        default:
-            console.log("Animation: Not Found");
-    }
+Animation.prototype.use= function(type, container, value) {
+    this.collection[type](container, value)
+
 };
 Animation.prototype.damage = function(positions) {
     this.blink('red');
@@ -25,6 +11,14 @@ Animation.prototype.damage = function(positions) {
     this.text.class = 'red';
 };
 var AnimationStorage = {
+    increase: function(container, value) {
+        container.classname += 'animation-increase-value';
+        container.textContet = value;
+    },
+    decrease: function(container, value) {
+
+        container.textContet = value;
+    },
     damage: function() {
         
     },

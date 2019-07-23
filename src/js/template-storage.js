@@ -33,21 +33,22 @@ var Ajax = require('./ajax.js');
 TemplateStorage = function(templates) {
   this.collection = templates || {};
 };
-TemplateStorage.prototype.get = function(name) {
+TemplateStorage.prototype.get = function(name, data) {
   var template = this.collection[name];
   if (!template) {
     // TODO error handling
     return;
   }
   if (template.inline) {
-    return parseStringToFrag(template.inline);
+    return parseStringToFrag(template.inline(data));
   }
   return template.frag.cloneNode(true);
 };
 TemplateStorage.prototype.render = function(name, container, data) {
-  var tmpl = this.get(name)(data);
+  var tmpl = this.get(name, data);
   // TODO create bindables when we load the template inside TemplateStorage.
-  // tmpl.attachTo(container);
+  container.appendChild(tmpl);
+  console.log(container);
   return getBindedElements(tmpl);
 };
 TemplateStorage.prototype.addInline = function(name, template) {
@@ -181,12 +182,14 @@ var templates = {
     name: 'hero',
     type: 'inline',
     inline: function(data) {
-      return '<template class="hero-container">' +
+      // TODO We need to decide if we need template
+      // tags for inline templates.
+      return '<div class="hero-container">' +
         '<div class="hero-name binds" data-tmpl="name">' + data.name + '</div>' +
         '<div class="hero-image binds" data-tmpl="image">' + data.image + '</div>' +
         '<div class="hero-stats binds" data-tmpl="strength">' + data.stats + '</div>' +
         '<div class="hero-hp binds" data-tmpl="hp">' + data.hp + '</div>' +
-        '</template> '
+        '</div> '
     }
   }
 };
