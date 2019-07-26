@@ -1,4 +1,4 @@
-var notifier = require('../src/js/notifier.js');
+var notifier = require('../../src/js/notifier.js');
 
 describe('Notifier', function() {
   it('should notify boolean true data', function(done) {
