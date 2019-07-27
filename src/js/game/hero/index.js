@@ -2,9 +2,8 @@ var HeroModel = require('./hero-model.js');
 var HeroView = require('./hero-view.js');
 var HeroStatsView = require('./hero-stats-view.js');
 var HeroController = require('./hero-controller.js');
-var Animation = require('../../animation.js');
 var GameModel = require('../game-model.js');
-var GameView = require('../game-game-view.js');
+var GameView = require('../game-view.js');
 /*
     We will need to create 2 hero objects: Player and Enemy.
     2 model and 2 view objects gonna be exacltly the same,
@@ -23,28 +22,55 @@ var GameView = require('../game-game-view.js');
     those functions while we are initializing. Same with View dependencies: 
     Template storage and Animations storage. 
     */
-
-var Herofactory = function(name, events) {
+  
+var Controller = function(name) {
+  this.name = name;
+  this.model = {}
+  this.view = {};
+};
+Controller.prototype.init = function(data) {
+  this.view = new HeroView(this.name, this.name);
+  this.statsView = new HeroStatsView(this.name, this.name);
+  this.model = new HeroModel(this.name, data);
+  //   GameModel.add(name, heroModel);
+  //   GameView.add(name, heroView);
+};
+var HeroController = function(name, events) {
   this.name = name;
   this.events = events;
   this.model = {};
+  // this.view = {};
 }
-Herofactory.prototype.init = function(data) {
+HeroController.prototype.init = function(data) {
+  this.view = new HeroView(this.name, this.name);
+  this.statsView = new HeroStatsView(this.name, this.name);
   this.model = new HeroModel(this.name, data);
-  var heroView = new HeroView(this.name, this.name);
-  var heroStatsView = new HeroStatsView(this.name, this.name);
   //   GameModel.add(name, heroModel);
   //   GameView.add(name, heroView);
-  var heroController = new HeroConctroller(this.name,
-    heroModel, heroView);
-  heroController.clickEvent(this.events);
 };
-Herofactory.prototype.update = function(data) {
+HeroController.prototype.initRender = function(data) {
+  this.init(data);
+  this.render();
+}
+HeroController.prototype.update = function(data) {
   this.model.update(data);
 };
-var enemyHeroEvents = function(viewData) {};
+HeroController.prototype.render = function() {
+  this.view.render(this.model);
+  this.statsView.render(this.model);
+};
+var enemyHeroEvents = {
+  'click': function(e){
+    return;
+  },
+  'hover': function(e) {
+    this.view.showInfo();
+  }
+};
 var playerHeroEvents = function(viewData) {};
 module.exports = {
-  player: new Herofactory('player', playerHeroEvents),
-  enemy: new HeroFactory('enemy', enemyHeroEvents)
+  player: new HeroController('player', playerHeroEvents),
+  enemy: new HeroController('enemy', enemyHeroEvents)
+  // playerStats: new StatsFactory('player', playerHero);
+  // enemyStats:
 };

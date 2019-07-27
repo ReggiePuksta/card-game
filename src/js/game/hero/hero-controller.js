@@ -6,6 +6,30 @@ HeroController = function(service, view) {
 HeroController.prototype = Object.create(Controller.prototype);
 HeroController.prototype.constructor = HeroController;
 
+HeroController.prototype.boundEvents= function(events) {
+  // TODO this will have to be redone
+  this.events = {
+    'click.hp': function(e) {
+
+    },
+    'click.image': function(e) {
+
+    },
+    'hover': function(e) {
+
+    },
+    'click': function(e) {
+      // We need to know application states
+      if (model.payerTurn && model.heroNotActivated) {
+        // We can activate pop menu to increase stats or choose
+        // ability.This will work only if the instantiated object is
+        // a player 
+      }
+    }
+  }
+ return events;
+};
+
 HeroController.prototype.clickHandler = function(e) {
   // We need to check if the card is clicked not in the hero model,
   // but in the board Model. Therefore to use this controller
@@ -33,3 +57,4 @@ HeroController.prototype.hoverHandler = function() {};
 //     this.view.showOptions();
 //   }
 // };
+module.exports = HeroController;

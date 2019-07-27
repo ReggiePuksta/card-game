@@ -1,24 +1,24 @@
 var Targeting = function(gameModel, gameView) {
-  this.enabled= false;
-  this.enemyHero= gameView.enemyHeroView;
-  this.playerHero= gameView.playHeroView;
-  this.enemyOngoing= gameView.enemyOngoingView;
-  this.playerOngoing= gameView.playerOngoingView;
-  this.enemyGraveyard= gameView.enemyGraveyardView;
-  this.playerGraveyard= gameView.playerGraveyardView;
-  this.boardModel= gameModel.boardModel;
+  this.enabled = false;
+  this.enemyHero = gameView.enemyHeroView;
+  this.playerHero = gameView.playHeroView;
+  this.enemyOngoing = gameView.enemyOngoingView;
+  this.playerOngoing = gameView.playerOngoingView;
+  this.enemyGraveyard = gameView.enemyGraveyardView;
+  this.playerGraveyard = gameView.playerGraveyardView;
+  this.boardModel = gameModel.boardModel;
 }
-  // Do we want to create viewList or we activate it straight away?
-  // viewList: [
-  //   ['boardView', [1, 3, 5]], 'enemyHeroView'
-  // ],
-  Targeting.prototype.disable= function() {
+// Do we want to create viewList or we activate it straight away?
+// viewList: [
+//   ['boardView', [1, 3, 5]], 'enemyHeroView'
+// ],
+Targeting.prototype.disable = function() {
     this.enabled = false;
   },
-  Targeting.prototype.enable= function() {
+  Targeting.prototype.enable = function() {
     this.enabled = true;
   },
-  Targeting.prototype.activation= function(card) {
+  Targeting.prototype.activation = function(card) {
     this.enable();
     if (!card.activateTargeting) {
       return;
@@ -35,7 +35,7 @@ var Targeting = function(gameModel, gameView) {
       });
     }
   },
-  Targeting.prototype.checkBoardPlacement= function(targetsArray) {
+  Targeting.prototype.checkBoardPlacement = function(targetsArray) {
     var slotsData = this.getSlotsData();
     var combined = [];
     for (var i = 0; i < targetsArray.length; i++)
@@ -48,7 +48,7 @@ var Targeting = function(gameModel, gameView) {
     }
     return combined;
   },
-  Targeting.prototype.getSlotsData= function() {
+  Targeting.prototype.getSlotsData = function() {
     return this.boardModel.getSlotsData();
   }
 var BoardTargetRules = {
