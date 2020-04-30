@@ -4,3 +4,6 @@ sandbox/
 .npm/
 .vscode/
 .DS_Store
+tmp/
+TODO
+dist/
