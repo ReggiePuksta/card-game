@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Testing UI Initialization</title>
+</head>
+
+<body>
+    <main class="container">
+        <div id="enemy-hand">Enemy Hand</div>
+        <div id="enemy">
+            <div id="enemy-ongoing">Opponent Ongoing</div>
+            <div id="enemy-hero">Opponent Hero</div>
+            <div id="enemy-graveyard">Opponent Graveyard</div>
+        </div>
+        <div id="battlefield">
+            <div id=slot0 class="card-slot">
+                <div id=cardId-9 class=card-frame>
+                    <div class=card-name>Card Name</div>
+                    <div class=card-cost>Card Cost</div>
+                    <div class=card-picture>Picture</div>
+                    <div class=card-stats>Stats</div>
+                </div>
+            </div>
+            <div id=slot1 class="card-slot"></div>
+            <div id=slot2 class="card-slot"></div>
+            <div id=slot3 class="card-slot"></div>
+            <div id=slot4 class="card-slot"></div>
+            <div id=slot5 class="card-slot"></div>
+            <div id=slot6 class="card-slot"></div>
+            <div id=slot7 class="card-slot"></div>
+            <div id=slot8 class="card-slot"></div>
+            <div id=slot9 class="card-slot"></div>
+            <div id=slot10 class="card-slot"></div>
+            <div id=slot11 class="card-slot"></div>
+            <div id=slot12 class="card-slot"></div>
+            <div id=slot13 class="card-slot"></div>
+            <div id=slot14 class="card-slot"></div>
+            <div id=slot15 class="card-slot"></div>
+            <div id=trap0 class="trap-slot-horizontal"></div>
+            <div id=trap1 class="trap-slot-horizontal"></div>
+            <div id=trap2 class="trap-slot-horizontal"></div>
+            <div id=trap3 class="trap-slot-horizontal"></div>
+            <div id=trap4 class="trap-slot-vertical"></div>
+            <div id=trap5 class="trap-slot-vertical"></div>
+            <div id=trap6 class="trap-slot-vertical"></div>
+            <div id=trap7 class="trap-slot-vertical"></div>
+        </div>
+        <div id="player">
+            <div id="player-hero">Player Hero</div>
+            <div id="player-ongoing">Player Ongoing</div>
+            <div id="player-graveyard">Player Graveyard</div>
+        </div>
+        <div id="player-hand">Player Hand</div>
+    </main>
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- <script src="../dist/bundle.js"></script> -->
+</body>
+
+</html>
