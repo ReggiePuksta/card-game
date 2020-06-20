@@ -1,194 +1,253 @@
-/* Overall page */
-body {
-    margin: 0;
-}
-.container {
-    position: relative;
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding:0 10px;
-    box-sizing:border-box;
-}
-.column,
-.columns {
-    width: 100%;
-    float: left;
+* {
     box-sizing: border-box;
 }
-/* For devices larger than 400px */
-@media (min-width: 400px) {
-    .container {
-        width: 85%;
-        padding: 0;
-    }
+/* Disable firefox, chrome gesture for back:
+https://stackoverflow.com/questions/30636930/disable-web-page-navigation-on-swipeback-and-forward
+*/
+html,
+body {
+    overscroll-behavior-x: none;
+    /* overscroll-behavior-y: none; */
+    height: 100%;
 }
-@media (min-width: 550px) {
-    .container {
-        width: 96%;
-    }
-    .column,
-    .columns {
-        /* margin-left:4%; */
-    }
-    .column:first-child,
-    .columns:first-child {
-        margin-left: 0;
-    }
-    .one.column,
-  .one.columns                    { width: 8.3333333333%; }
-  .two.columns                    { width: 16.6666666667%; }
-  .two-half.columns               { width: 20.8333333333%  }
-  .three.columns                  { width: 25%;            }
-  .four.columns                   { width: 33.3333333333%; }
-  .five.columns                   { width: 41.6666666667%; }
-  .six.columns                    { width: 50%;            }
-  .seven.columns                  { width: 58.3333333333%; }
-  .eight.columns                  { width: 66.6666666667%; }
-  .nine.columns                   { width: 75.0%;          }
-  .ten.columns                    { width: 83.3333333333%; }
-  .eleven.columns                 { width: 91.6666666667%; }
-  .twelve.columns                 { width: 100%; margin-left: 0; }
-
-  .one-third.column               { width: 30.6666666667%; }
-  .two-thirds.column              { width: 65.3333333333%; }
-
-  .one-half.column                { width: 48%; }
-
-  /* Offsets */
-  .offset-by-one.column,
-  .offset-by-one.columns          { margin-left: 8.66666666667%; }
-  .offset-by-two.column,
-  .offset-by-two.columns          { margin-left: 17.3333333333%; }
-  .offset-by-three.column,
-  .offset-by-three.columns        { margin-left: 26%;            }
-  .offset-by-four.column,
-  .offset-by-four.columns         { margin-left: 34.6666666667%; }
-  .offset-by-five.column,
-  .offset-by-five.columns         { margin-left: 43.3333333333%; }
-  .offset-by-six.column,
-  .offset-by-six.columns          { margin-left: 52%;            }
-  .offset-by-seven.column,
-  .offset-by-seven.columns        { margin-left: 60.6666666667%; }
-  .offset-by-eight.column,
-  .offset-by-eight.columns        { margin-left: 69.3333333333%; }
-  .offset-by-nine.column,
-  .offset-by-nine.columns         { margin-left: 78.0%;          }
-  .offset-by-ten.column,
-  .offset-by-ten.columns          { margin-left: 86.6666666667%; }
-  .offset-by-eleven.column,
-  .offset-by-eleven.columns       { margin-left: 95.3333333333%; }
-
-  .offset-by-one-third.column,
-  .offset-by-one-third.columns    { margin-left: 34.6666666667%; }
-  .offset-by-two-thirds.column,
-  .offset-by-two-thirds.columns   { margin-left: 69.3333333333%; }
-
-  .offset-by-one-half.column,
-  .offset-by-one-half.columns     { margin-left: 52%; }
-
+body {
+    background-color: beige;
+}
+.container {
+    height: 100%;
+    padding: 0.3rem;
+    white-space: nowrap;
+    display: grid;
+    grid-template-columns: 2fr 600px 2fr;
+    grid-template-rows: 1fr 10fr 2fr;
+    grid-template-areas:
+        "ehand ehand ehand"
+        "player battlefield enemy"
+        "phand phand phand";
+    grid-column-gap: 1%;
+    grid-row-gap: 1%;
+}
+.container > div {
+    background-color: rgb(233, 166, 41);
+}
+.container > div#battlefield {
+    background-color: unset;
+}
+#enemy-hand {
+    grid-area: ehand;
+}
+#enemy {
+    grid-area: enemy;
+}
+#player {
+    grid-area: player;
+}
+#player-hand {
+    grid-area: phand;
 }
 
-#fullContainer {
-	/* position: relative; */
-	border: 3px solid green;
-	/* width: 1200px; */
-	/* height: 900px; */
-	/* clear:both; */
-}
-.card-field {
-    border: 2px solid orange;
-    height: 170px;
-}
-.board-gap {
-    border: 5px solid pink;
-    height: 170px;
-}
-
-#hero1,
-#hero2 {
-	border: 3px solid blue;
-	/* width: 300px; */
-	height: 300px;
-}
-#manatable1,
-#manatable2 {
-	border: 3px solid red;
-	/* width: 300px; */
-	height: 300px;
-}
-#sideboardLeft {
-	/* float:left; */
-	border: 3px solid brown;
-	/* width:300px; */
-	height: 900px;
-
-}
-#sideboardRight {
-	border: 3px solid green;
-	/* width:300px; */
-	height: 900px;
-
-}
-.clearfix {
-	overflow: auto;	
-}
-#board {
-	position: relative;
-	float:left;
-	border: 3px solid cyan;
-	/* width: 500px; */
-	/* height:500px; */
+#battlefield {
+    grid-area: battlefield;
+    display: grid;
+    height: 100%;
+    grid-template-columns: 2fr 2fr 1fr 2fr 2fr;
+    grid-template-rows: 1fr 2fr 2fr 2fr 2fr;
+    grid-template-areas:
+        "trap0 trap1 . trap2 trap3"
+        "slot0 slot4 trap4 slot8 slot12"
+        "slot1 slot5 trap5 slot9 slot13"
+        "slot2 slot6 trap6 slot10 slot14"
+        "slot3 slot7 trap7 slot11 slot15";
+    grid-column-gap: 1%;
+    grid-row-gap: 1%;
+    align-items: center;
+    justify-items: center;
 }
 
-.cards-player-area,
-.cards-enemy-area {
-    position: fixed;
-    border: 3px solid black;
-    width: 40%;
-    height: 200px;
+.card-slot {
+    position: relative;
+    border: 2px orange solid;
+    width: 100%;
+    height: 100%;
+    background-color: navajowhite;
 }
-.cards-player-area {
-    left:0;
-    bottom:0;
+.trap-slot-horizontal {
+    width: 100%;
+    height: 100%;
+    border: 2px orange solid;
+    background-color: rgba(250, 228, 195, 0.596);
 }
-.cards-enemy-area {
-    right:0;
-    bottom: 0;
+.trap-slot-vertical {
+    width: 100%;
+    height: 100%;
+    border: 2px orange solid;
+    background-color: rgba(250, 228, 195, 0.596);
 }
-.card-frame {
-    transition: all .10s ease-in-out;
-    box-sizing:border-box;
-    width: 30%;
-    /* padding-top: 40%; */
-    /* display: inline-block; */
-    position: absolute;
-    background: grey;
-    border: 1px black solid;
-    height: 200px;
-    padding: 1%;
-}
-.card-frame:hover {
-    transition: left, width, height .10s ease-in-out;
-
-}
-.melee {
-    /* border: 3px solid blue; */
-}
-.ranged {
-    /* border: 3px solid red; */
+.card-slot:hover,
+.trap-slot-vertical:hover,
+.trap-slot-horizontal:hover {
+    border: 2px solid green;
+    background-color: greenyellow;
 }
 .available-placement {
-    border: 3px solid blue;
+    border: 3px solid greenyellow;
 }
-ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+#slot0 {
+    grid-area: slot0;
 }
-.container:after,
+#slot1 {
+    grid-area: slot1;
+}
+#slot2 {
+    grid-area: slot2;
+}
+#slot3 {
+    grid-area: slot3;
+}
+#slot4 {
+    grid-area: slot4;
+}
+#slot5 {
+    grid-area: slot5;
+}
+#slot6 {
+    grid-area: slot6;
+}
+#slot7 {
+    grid-area: slot7;
+}
+#slot8 {
+    grid-area: slot8;
+}
+#slot9 {
+    grid-area: slot9;
+}
+#slot10 {
+    grid-area: slot10;
+}
+#slot11 {
+    grid-area: slot11;
+}
+#slot12 {
+    grid-area: slot12;
+}
+#slot13 {
+    grid-area: slot13;
+}
+#slot14 {
+    grid-area: slot14;
+}
+#slot15 {
+    grid-area: slot15;
+}
+#trap0 {
+    grid-area: trap0;
+}
+#trap1 {
+    grid-area: trap1;
+}
+#trap2 {
+    grid-area: trap2;
+}
+#trap3 {
+    grid-area: trap3;
+}
+#trap4 {
+    grid-area: trap4;
+}
+#trap5 {
+    grid-area: trap5;
+}
+#trap6 {
+    grid-area: trap6;
+}
+#trap7 {
+    grid-area: trap7;
+}
+
+/* ------ Cards ---- */
+.card-frame {
+    box-sizing: border-box;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(156, 199, 248, 0.897);
+    border: 3px rgb(69, 61, 141) solid;
+}
+.card-frame:hover {
+    /* transition: all 0.1s ease-in-out; */
+    transition: left, width, height 0.1s ease-in-out;
+}
+/* media */
+@media (max-width: 1366px) and (orientation: landscape) {
+    .container {
+        grid-template-columns: 2fr 8fr 2fr;
+    }
+}
+@media (orientation: portrait) {
+    .container {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 1fr 6fr 1.5fr;
+        grid-template-areas:
+            "enemy ehand ehand"
+            "battlefield battlefield battlefield"
+            "player phand phand";
+    }
+    #battlefield {
+        grid-gap: 0.5rem;
+    }
+    .card-slot {
+        width: 100px;
+    }
+}
+@media (max-width: 1024px) and (orientation: portrait) {
+    .card-slot {
+        width: 86%;
+    }
+    .trap-slot-horizontal {
+        width: 86%;
+    }
+}
+@media (max-height: 700px) and (orientation: landscape) {
+    .container {
+        grid-template-columns: 1fr 3fr 1fr;
+        grid-template-rows: 3fr 6fr 4fr;
+        grid-template-areas:
+            "player battlefield ehand"
+            "player battlefield enemy"
+            "phand battlefield enemy";
+    }
+}
+@media screen and (min-width: 1367px) {
+    .container {
+        grid-template-columns: 2fr 3fr 1fr 2fr;
+        grid-template-rows: 1fr 6fr 1.5fr;
+        grid-template-areas:
+            "player battlefield battlefield enemy"
+            "player battlefield battlefield enemy"
+            "phand phand ehand ehand";
+    }
+    .card-slot {
+        width: 150px;
+    }
+    .trap-slot-horizontal {
+        width: 150px;
+    }
+}
+@media (max-width: 580px) {
+    .card-slot {
+        width: 100%;
+    }
+    .trap-slot-horizontal {
+        width: 100%;
+    }
+}
+
+/* .container:after,
 .row:after,
-.u-cf {
-  content: "";
-  display: table;
-  clear: both; }
+.cf {
+    content: "";
+    display: table;
+    clear: both;
+} */
