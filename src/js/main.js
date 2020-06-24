@@ -14,6 +14,7 @@
 */
 
 import GameView from "./game/game-view.js";
+import "./game/player-hand";
 
 import "../css/normalize.css";
 import "../css/style.css";

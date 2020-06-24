@@ -19,10 +19,18 @@
         <div id="battlefield">
             <div id=slot0 class="card-slot">
                 <div id=cardId-9 class=card-frame>
-                    <div class=card-name>Card Name</div>
-                    <div class=card-cost>Card Cost</div>
+                    <div class=card-name>Name</div>
+                    <div class=card-cost>
+                        <span class="strength">2</span>
+                        <span class="int">0</span>
+                        <span class="fortune">1</span>
+                    </div>
                     <div class=card-picture>Picture</div>
-                    <div class=card-stats>Stats</div>
+                    <div class=card-stats>
+                        <span class="attack">3</span>
+                        <span class="agility">0</span>
+                        <span class="hp">2</span>
+                    </div>
                 </div>
             </div>
             <div id=slot1 class="card-slot"></div>
@@ -54,10 +62,26 @@
             <div id="player-ongoing">Player Ongoing</div>
             <div id="player-graveyard">Player Graveyard</div>
         </div>
-        <div id="player-hand">Player Hand</div>
-    </main>
-    <script src="/socket.io/socket.io.js"></script>
-    <!-- <script src="../dist/bundle.js"></script> -->
+        <div id="player-hand">
+            <div id="player-hand-widget">5</div>
+            <div id="player-hand-cards">
+                <div id=cardId-4 class=card-frame-hand>
+                    <div class=card-cost>
+                        <div class="mana">3</div>
+                        <div class="strength">2</div>
+                        <div class="int">0</div>
+                        <div class="fortune">1</div>
+                    </div>
+                    <div class=card-name>Name</div>
+                    <!-- <div class=card-picture>Picture</div> -->
+                    <div class=card-stats>
+                        <div class="attack">3</div>
+                        <div class="agility">0</div>
+                        <div class="hp">2</div>
+                    </div>
+                </div>
+                <div id=cardId-5 class=card-frame-hand></div>
+    <script src="/socket.io/socket.io.js"></script><!-- <script src="../dist/bundle.js"></script> -->
 </body>
 
 </html>

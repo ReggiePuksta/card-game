@@ -9,16 +9,23 @@ body {
     overscroll-behavior-x: none;
     /* overscroll-behavior-y: none; */
     height: 100%;
+    font-size: 1.5vh;
 }
+
 body {
     background-color: beige;
 }
+
+@import "./card.css";
+
 .container {
+    user-select: none;
+    overflow: hidden;
     height: 100%;
     padding: 0.3rem;
     white-space: nowrap;
     display: grid;
-    grid-template-columns: 2fr 600px 2fr;
+    grid-template-columns: 2fr 8fr 2fr;
     grid-template-rows: 1fr 10fr 2fr;
     grid-template-areas:
         "ehand ehand ehand"
@@ -42,8 +49,23 @@ body {
 #player {
     grid-area: player;
 }
+
 #player-hand {
     grid-area: phand;
+    white-space: nowrap;
+    border: 2px solid red;
+    text-align: center;
+    width: 100%;
+}
+
+#player-hand-cards {
+    background-color: #fff;
+    height: 100%;
+    max-height: 15vh;
+}
+
+#player-hand-widget {
+    display: none;
 }
 
 #battlefield {
@@ -83,12 +105,13 @@ body {
     border: 2px orange solid;
     background-color: rgba(250, 228, 195, 0.596);
 }
-.card-slot:hover,
+
 .trap-slot-vertical:hover,
 .trap-slot-horizontal:hover {
     border: 2px solid green;
     background-color: greenyellow;
 }
+
 .available-placement {
     border: 3px solid greenyellow;
 }
@@ -165,30 +188,12 @@ body {
     grid-area: trap7;
 }
 
-/* ------ Cards ---- */
-.card-frame {
-    box-sizing: border-box;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: rgba(156, 199, 248, 0.897);
-    border: 3px rgb(69, 61, 141) solid;
-}
-.card-frame:hover {
-    /* transition: all 0.1s ease-in-out; */
-    transition: left, width, height 0.1s ease-in-out;
-}
-/* media */
-@media (max-width: 1366px) and (orientation: landscape) {
+/* --- Responsive Media --- */
+
+@media screen and (orientation: portrait) and (max-width: 700px) {
     .container {
-        grid-template-columns: 2fr 8fr 2fr;
-    }
-}
-@media (orientation: portrait) {
-    .container {
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: 1fr 6fr 1.5fr;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 0.8fr 6fr 1fr;
         grid-template-areas:
             "enemy ehand ehand"
             "battlefield battlefield battlefield"
@@ -201,28 +206,28 @@ body {
         width: 100px;
     }
 }
-@media (max-width: 1024px) and (orientation: portrait) {
-    .card-slot {
-        width: 86%;
-    }
-    .trap-slot-horizontal {
-        width: 86%;
-    }
-}
-@media (max-height: 700px) and (orientation: landscape) {
+
+@media (max-height: 700px) and (max-width: 1367px) and (orientation: landscape) {
     .container {
-        grid-template-columns: 1fr 3fr 1fr;
+        grid-template-columns: 1fr 4fr 1fr;
         grid-template-rows: 3fr 6fr 4fr;
         grid-template-areas:
             "player battlefield ehand"
             "player battlefield enemy"
             "phand battlefield enemy";
     }
+    #player-hand-cards {
+        display: none;
+    }
+    #player-hand-widget {
+        display: block;
+    }
 }
-@media screen and (min-width: 1367px) {
+
+@media screen and (min-width: 1367px) and (orientation: landscape) {
     .container {
-        grid-template-columns: 2fr 3fr 1fr 2fr;
-        grid-template-rows: 1fr 6fr 1.5fr;
+        grid-template-columns: 2fr 6fr 1fr 2fr;
+        grid-template-rows: 1fr 6fr auto;
         grid-template-areas:
             "player battlefield battlefield enemy"
             "player battlefield battlefield enemy"
@@ -235,12 +240,20 @@ body {
         width: 150px;
     }
 }
-@media (max-width: 580px) {
+
+/* Enable Hand browsing widget */
+@media screen and (max-width: 700px) {
     .card-slot {
         width: 100%;
     }
     .trap-slot-horizontal {
         width: 100%;
+    }
+    #player-hand-cards {
+        display: none;
+    }
+    #player-hand-widget {
+        display: block;
     }
 }
 
